@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, CSSProperties } from 'react';
+import { StrictMode, CSSProperties, useState } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
@@ -13,19 +13,21 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
+	const [stateBlog, setStateBlog] = useState(defaultArticleState);
+
 	return (
 		<main
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': stateBlog.fontFamilyOption.value,
+					'--font-size': stateBlog.fontSizeOption.value,
+					'--font-color': stateBlog.fontColor.value,
+					'--container-width': stateBlog.contentWidth.value,
+					'--bg-color': stateBlog.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm />
+			<ArticleParamsForm onSubmit={setStateBlog} />
 			<Article />
 		</main>
 	);
